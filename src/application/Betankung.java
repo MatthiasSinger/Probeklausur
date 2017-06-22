@@ -5,34 +5,31 @@ import java.time.LocalDate;
 import javafx.beans.property.DoubleProperty;
 
 public class Betankung {
-	private DoubleProperty gefahreneStrecke;
-	private DoubleProperty getankterKraftstoff;
-	private DoubleProperty preisProLiter ;
-	private LocalDate datum;
-	private DoubleProperty bezahlt;
-	private DoubleProperty durchschnittVerbrauch;
-	private DoubleProperty kostenProKM;
-	
-	public Betankung(double gefahreneStrecke,
-			double getankterKraftstoff, double preisProLiter,
-			LocalDate datum) {
-		this.gefahreneStrecke.set(gefahreneStrecke);
-		this.getankterKraftstoff.set(getankterKraftstoff);
-		this.preisProLiter.set(preisProLiter);
+	public Betankung(double gefahreneStrecke, double getankterKraftstoff, double preisProLiter, LocalDate datum,
+			double gesamtkosten, double durchschnittVerbrauch, double kostenProKM)
+	{
+		super();
+		this.gefahreneStrecke = gefahreneStrecke;
+		this.getankterKraftstoff = getankterKraftstoff;
+		this.preisProLiter = preisProLiter;
 		this.datum = datum;
-		
-		bezahlt.bind(this.getankterKraftstoff.multiply(this.preisProLiter));
-		durchschnittVerbrauch.bind(this.gefahreneStrecke.divide(getankterKraftstoff));
-		kostenProKM.bind((this.getankterKraftstoff.multiply(preisProLiter)).divide(this.gefahreneStrecke));
+		this.gesamtkosten = gesamtkosten;
+		this.durchschnittVerbrauch = durchschnittVerbrauch;
+		this.kostenProKM = kostenProKM;
 	}
+	private double gefahreneStrecke;
+	private double getankterKraftstoff;
+	private double preisProLiter ;
+	private LocalDate datum;
+	private double gesamtkosten;
+	private double durchschnittVerbrauch;
+	private double kostenProKM;
 	
 	public String toString()
 	{
-		return datum.toString() + " | " + gefahreneStrecke.toString() + " | " +preisProLiter.toString() + " | " +
-				getankterKraftstoff.toString() + " | " + durchschnittVerbrauch.toString() + " | " + 
-				bezahlt.toString() + " | " + kostenProKM.toString();
+		return datum.toString() + " | " + String.valueOf(this.gefahreneStrecke) + " | " + String.valueOf(this.getankterKraftstoff) + " | " +
+				String.valueOf(this.preisProLiter) + " | " + String.valueOf(this.gesamtkosten) + " | " + String.valueOf(this.durchschnittVerbrauch) + " | " +
+				String.valueOf(this.kostenProKM);
 	}
-	
-	
 
 }

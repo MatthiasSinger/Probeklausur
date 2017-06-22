@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="469.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<VBox prefHeight="469.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
-      <ListView prefHeight="410.0" prefWidth="529.0" />
+      <ListView fx:id="listView1" prefHeight="410.0" prefWidth="529.0" />
       <HBox prefHeight="50.0" prefWidth="529.0">
          <children>
-            <Button fx:id="butAdd" mnemonicParsing="false" onAction="#openDataEntry" text="Hinzufügen">
+            <Button fx:id="butAdd" mnemonicParsing="false" onAction="#openDataEntry" prefHeight="25.0" prefWidth="94.0" text="Hinzufügen">
                <HBox.margin>
                   <Insets left="250.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Löschen">
+            <Button fx:id="butDelete" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="79.0" text="Löschen">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
