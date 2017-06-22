@@ -6,38 +6,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="469.0" prefWidth="529.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="application.EingabeController">
+<VBox prefHeight="469.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EingabeController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="27.0" prefWidth="216.0" text="Gefahrene Strecke" />
-            <TextField />
+            <TextField fx:id="tfGefahren" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="27.0" prefWidth="216.0" text="Getankte Menge" />
-            <TextField />
+            <TextField fx:id="tfGetankt" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="27.0" prefWidth="222.0" text="Preis" />
-            <TextField />
+            <TextField fx:id="tfPreis" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="320.0">
          <children>
             <Label prefHeight="27.0" prefWidth="222.0" text="Datum" />
-            <DatePicker />
+            <DatePicker fx:id="datePicker1" />
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="27.0" prefWidth="228.0" text="Gesamtbetrag" />
-            <Label prefHeight="27.0" prefWidth="232.0" text="Label" />
+            <Label fx:id="labGesamt" prefHeight="27.0" prefWidth="232.0" text="Label" />
          </children>
          <VBox.margin>
             <Insets />
@@ -46,13 +45,13 @@
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="27.0" prefWidth="230.0" text="Durchschnittsverbrauch" />
-            <Label text="Label" />
+            <Label fx:id="labDurchschnitt" text="Label" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="27.0" prefWidth="234.0" text="Kosten" />
-            <Label text="Label" />
+            <Label fx:id="labKosten" text="Label" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
