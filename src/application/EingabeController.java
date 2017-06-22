@@ -1,16 +1,22 @@
 package application;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 public class EingabeController {
 
-	
+	@FXML VBox rootVBox;
 	@FXML Button butSpeichern;
 	@FXML Label labDurchschnitt;
 	@FXML Label labKosten;
@@ -20,12 +26,12 @@ public class EingabeController {
 	@FXML TextField tfGetankt;
 	@FXML TextField tfGefahren;
 	
-	private double gefahren;
-	private double preis;
-	private double getankt;
-	private double durchschnittVerbrauch;
-	private double kostenProKm;
-	private double gesamtKosten;
+	private DoubleProperty gefahren;
+	private DoubleProperty preis;
+	private DoubleProperty getankt;
+	private DoubleProperty durchschnittVerbrauch;
+	private DoubleProperty kostenProKm;
+	private DoubleProperty gesamtKosten;
 	private LocalDate datum;
 	
 	private MainController mc;
@@ -33,18 +39,26 @@ public class EingabeController {
 	@FXML
 	public void initialize()
 	{
-		tfPreis.textProperty().addListener(cl -> {
-			this.preis = (tfPreis.getText().isEmpty()) ? 0 : Double.valueOf(tfPreis.getText());
-			calculate();
-		});
-		tfGetankt.textProperty().addListener(cl -> {
-			this.getankt = (tfGetankt.getText().isEmpty()) ? 0 : Double.valueOf(tfGetankt.getText());
-			calculate();
-		});
-		tfGefahren.textProperty().addListener(cl -> {
-			this.gefahren = (tfGefahren.getText().isEmpty()) ? 0 : Double.valueOf(tfGefahren.getText());
-			calculate();
-		});
+		this.gefahren = new SimpleDoubleProperty();
+		this.preis = new SimpleDoubleProperty();
+		this.getankt = new SimpleDoubleProperty();
+		this.durchschnittVerbrauch = new SimpleDoubleProperty();
+		this.kostenProKm = new SimpleDoubleProperty();
+		this.gesamtKosten = new SimpleDoubleProperty();
+		
+		Bindings.bindBidirectional(tfGefahren.textProperty(),this.gefahren,new NumberStringConverter());
+		Bindings.bindBidirectional(tfGetankt.textProperty(),this.getankt,new NumberStringConverter());
+		Bindings.bindBidirectional(tfPreis.textProperty(),this.preis,new NumberStringConverter());
+		
+		this.gesamtKosten.bind(this.getankt.multiply(this.preis));
+		Bindings.bindBidirectional(labGesamt.textProperty(), this.gesamtKosten, new NumberStringConverter());
+		
+		this.durchschnittVerbrauch.bind(this.getankt.divide(this.gefahren));
+		Bindings.bindBidirectional(labDurchschnitt.textProperty(), this.durchschnittVerbrauch,new NumberStringConverter());
+		
+		this.kostenProKm.bind(this.gesamtKosten.divide(this.gefahren));
+		Bindings.bindBidirectional(labKosten.textProperty(), this.kostenProKm, new NumberStringConverter());
+		
 		datePicker1.valueProperty().addListener(cl -> {
 			this.datum = datePicker1.getValue();
 		});
@@ -55,44 +69,25 @@ public class EingabeController {
 		this.mc = mc;
 	}
 	
-	private void calculate()
+
+	@FXML 
+	private void speichern() 
 	{
-		//Gesamtkosten
-		if (!tfPreis.getText().isEmpty() && !tfGetankt.getText().isEmpty()) 
-		{
-			this.gesamtKosten = this.preis * this.getankt;
-			labGesamt.setText(String.valueOf(this.gesamtKosten));
-		}
-		else
-		{
-			labGesamt.setText("");
-		}
-		//Durchschnittsverbrauch
-		if (!tfGefahren.getText().isEmpty() && !tfGetankt.getText().isEmpty())
-		{
-			this.durchschnittVerbrauch = this.getankt / this.gefahren;
-			labDurchschnitt.setText(String.valueOf(this.durchschnittVerbrauch));
-		}
-		else
-		{
-			labDurchschnitt.setText("");
-		}
-		//Kosten pro KM
-		if (!tfGefahren.getText().isEmpty() && !tfGetankt.getText().isEmpty() && !tfPreis.getText().isEmpty())
-		{
-			this.kostenProKm = (this.preis * this.getankt) / this.gefahren;
-			labKosten.setText(String.valueOf(this.kostenProKm));
-		}
-		else
-		{
-			labGesamt.setText("");
-		}
+		Betankung b = new Betankung(gefahren.doubleValue(), getankt.doubleValue(), preis.doubleValue(),
+				datum, gesamtKosten.doubleValue(), durchschnittVerbrauch.doubleValue(), kostenProKm.doubleValue());
+		mc.addToList(b);
+		close();
+	}
+	
+	@FXML
+	private void cancel()
+	{
+		close();
 	}
 
-	@FXML public void speichern() 
+	private void close()
 	{
-		Betankung b = new Betankung(gefahren, getankt, preis, datum, gesamtKosten, durchschnittVerbrauch, kostenProKm);
-		mc.addToList(b);
+		((Stage) rootVBox.getScene().getWindow()).close();
 	}
 	
 }

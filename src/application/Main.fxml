@@ -11,7 +11,7 @@
       <ListView fx:id="listView1" prefHeight="410.0" prefWidth="529.0" />
       <HBox prefHeight="50.0" prefWidth="529.0">
          <children>
-            <Button fx:id="butAdd" mnemonicParsing="false" onAction="#openDataEntry" prefHeight="25.0" prefWidth="94.0" text="Hinzufügen">
+            <Button fx:id="butAdd" mnemonicParsing="false" onAction="#openDataEntry" prefHeight="25.0" prefWidth="111.0" text="Hinzufügen">
                <HBox.margin>
                   <Insets left="250.0" />
                </HBox.margin>

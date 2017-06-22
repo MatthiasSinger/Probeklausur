@@ -11,12 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
 
 public class MainController {
-
-	
-	
 	@FXML ListView<Betankung> listView1;
-	@FXML Button butAdd;
-	@FXML Button butDelete;
 	
 	@FXML
 	private void openDataEntry() throws IOException
