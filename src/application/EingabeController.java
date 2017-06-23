@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.DatePicker;
@@ -73,10 +74,21 @@ public class EingabeController {
 	@FXML 
 	private void speichern() 
 	{
-		Betankung b = new Betankung(gefahren.doubleValue(), getankt.doubleValue(), preis.doubleValue(),
-				datum, gesamtKosten.doubleValue(), durchschnittVerbrauch.doubleValue(), kostenProKm.doubleValue());
-		mc.addToList(b);
-		close();
+		if (this.datum != null && gefahren.doubleValue()*getankt.doubleValue()*preis.doubleValue()*
+				durchschnittVerbrauch.doubleValue()*gesamtKosten.doubleValue()*kostenProKm.doubleValue() != 0)
+		{
+			Betankung b = new Betankung(gefahren.doubleValue(), getankt.doubleValue(), preis.doubleValue(),
+					datum, gesamtKosten.doubleValue(), durchschnittVerbrauch.doubleValue(), kostenProKm.doubleValue());
+			mc.addToList(b);
+			close();
+		}
+		else
+		{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("Eingabefehler");
+			alert.setContentText("Informationen fehlen");
+			alert.showAndWait();
+		}
 	}
 	
 	@FXML
